@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Brainrot Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Text to Brainrot Generator 🧠</h1>
+        
+        <div class="main-content">
+            <!-- Text Input Section -->
+            <div class="text-section">
+                <h2>Enter Your Text</h2>
+                <textarea id="textInput" placeholder="Type your text here... (e.g., Yo, this is so sigma! The rizzler is about to drop some Ohio facts that will literally break your gyatt!)"></textarea>
+                
+                <div class="controls">
+                    <label for="voiceSelect">Voice:</label>
+                    <select id="voiceSelect">
+                        <option value="">Default</option>
+                    </select>
+                    
+                    <label for="speedRange">Speed:</label>
+                    <input type="range" id="speedRange" min="0.5" max="2" value="1" step="0.1">
+                    <span id="speedValue">1x</span>
+                    
+                    <label for="pitchRange">Pitch:</label>
+                    <input type="range" id="pitchRange" min="0" max="2" value="1" step="0.1">
+                    <span id="pitchValue">1x</span>
+                </div>
+                
+                <div class="recording-controls">
+                    <label>
+                        <input type="checkbox" id="recordVideo" checked>
+                        Record Video for Download
+                    </label>
+                    <label for="qualitySelect">Quality:</label>
+                    <select id="qualitySelect">
+                        <option value="720p">720p</option>
+                        <option value="1080p" selected>1080p</option>
+                        <option value="480p">480p</option>
+                    </select>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="playBtn">🎵 Start Brainrot</button>
+                    <button id="stopBtn">⏹️ Stop</button>
+                    <button id="downloadBtn" disabled>💾 Download Video</button>
+                </div>
+            </div>
+            
+            <!-- Video Section -->
+            <div class="video-section">
+                <h2>Background Video</h2>
+                <div class="video-container">
+                    <video id="backgroundVideo" controls>
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <!-- Hidden canvas for recording -->
+                    <canvas id="recordingCanvas" style="display: none;"></canvas>
+                </div>
+                
+                <div class="video-controls">
+                    <input type="file" id="videoInput" accept="video/*">
+                    <button id="uploadBtn">📁 Upload Video</button>
+                    <button id="randomVideoBtn">🎲 Random Video</button>
+                </div>
+                
+                <div class="preset-videos">
+                    <h3>Preset Brainrot Videos:</h3>
+                    <div class="video-thumbnails">
+                        <div class="thumbnail" data-video="subway-surfers">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRkY2QjMwIi8+Cjx0ZXh0IHg9IjUwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3Vid2F5IFN1cmZlcnM8L3RleHQ+Cjwvc3ZnPgo=" alt="Subway Surfers">
+                            <span>Subway Surfers</span>
+                        </div>
+                        <div class="thumbnail" data-video="minecraft">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjOERBMzNEIi8+Cjx0ZXh0IHg9IjUwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TWluZWNyYWZ0PC90ZXh0Pgo8L3N2Zz4K" alt="Minecraft">
+                            <span>Minecraft</span>
+                        </div>
+                        <div class="thumbnail" data-video="satisfying">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRkY1NkE1Ii8+Cjx0ZXh0IHg9IjUwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U2F0aXNmeWluZzwvdGV4dD4KPC9zdmc+Cg==" alt="Satisfying">
+                            <span>Satisfying</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="recording-status">
+            <div class="status-item">
+                <span class="status-label">Status:</span>
+                <span id="statusText">Ready to generate brainrot! 🚀</span>
+            </div>
+            <div class="status-item recording-info" id="recordingInfo" style="display: none;">
+                <span class="status-label">Recording:</span>
+                <span id="recordingTime">00:00</span>
+                <div class="recording-indicator">🔴</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

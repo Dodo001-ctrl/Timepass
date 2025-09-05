@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.text-section, .video-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+h2 {
+    color: #4a5568;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+#textInput {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: vertical;
+    font-family: inherit;
+    margin-bottom: 20px;
+}
+
+#textInput:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.recording-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 10px;
+}
+
+.recording-controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.controls label, .recording-controls label {
+    font-weight: bold;
+    color: #4a5568;
+}
+
+select, input[type="range"] {
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex: 1;
+    min-width: 120px;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: #gray;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+#downloadBtn {
+    background: linear-gradient(45deg, #48bb78, #38a169);
+}
+
+#downloadBtn:hover:not(:disabled) {
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#backgroundVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.video-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.thumbnail {
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.thumbnail:hover {
+    transform: scale(1.05);
+    background-color: #f7fafc;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 60px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.thumbnail span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.recording-status {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-label {
+    font-weight: bold;
+    color: #4a5568;
+}
+
+#statusText {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.recording-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#recordingTime {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #e53e3e;
+}
+
+.recording-indicator {
+    animation: blink 1s infinite;
+    font-size: 12px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .controls {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+    
+    .recording-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .recording-status {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    button {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* Animation for playing state */
+.playing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
